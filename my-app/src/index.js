@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 
+
+function checkDraw(s) {
+    return typeof s;
+}
 function Square(props){
     return (
         <button className="square" onClick={props.onClick}>
@@ -89,7 +93,7 @@ render() {
     const lastTouched = this.state.lastTouched;
     const moves = history.map((step, move) => {
         const desc = move ?
-        'Go to ${}' :
+        `Go to move #${move}` :
         'Go to game start';
         return (
             <li key={move}>
@@ -99,16 +103,15 @@ render() {
     });
 
     
+    
+    
     let status;
-    if (winner){
-
-        status = 'WInner: ' + winner;
+    if (winner) {
+        status = 'Winner: ' + winner;
 
     } else {
         status = 'Next Player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
-
-
     return (
       <div className="game">
         <div className="game-board">
@@ -116,7 +119,8 @@ render() {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+                <ol>{moves}</ol>
+                <ol>{current.squares.every(checkDraw)}</ol>
         </div>
       </div>
     );
